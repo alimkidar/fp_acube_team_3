@@ -58,5 +58,5 @@ def query_update_actual(df_all, if_exists='fail'):
 def main():
     df_comb = get_combination(clusters, warehouses, regions)
     df_all = query_request_actual(df_comb)
-    query_update_actual()
+    query_update_actual(df_all, 'replace')
 main()
