@@ -56,7 +56,9 @@ def query_update_actual(df_all, if_exists='fail'):
     df_all.to_gbq('alim_hanif.tab_actual',if_exists =if_exists, project_id='minerva-da-coe')
     print(f'DEBUG:Query Update-Actual-Success')
 def main():
+    print('DEBUG:Start')
     df_comb = get_combination(clusters, warehouses, regions)
     df_all = query_request_actual(df_comb)
     query_update_actual(df_all, 'replace')
     return df_all
+main()
