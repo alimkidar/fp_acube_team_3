@@ -59,4 +59,4 @@ def main():
     df_comb = get_combination(clusters, warehouses, regions)
     df_all = query_request_actual(df_comb)
     query_update_actual(df_all, 'replace')
-main()
+    return df_all
