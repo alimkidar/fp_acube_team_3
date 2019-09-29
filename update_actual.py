@@ -43,11 +43,11 @@ def query_request_actual(df_comb):
             AND new_origin_city != '{region}'
             Group BY week_, cluster, warehouse, payment_verified_wib_year
         """
-    df_query = pd.read_gbq(query, project_id='minerva-da-coe', dialect='standard')
-    df_all = df_all.append(df_query)
-    print(f'DEBUG:Query Requests-Actual:{str(count)}:{cluster}:{region}:{warehouse}:INFO-{str(len(df_query))}')
-    df_query = ''
-    count += 1
+        df_query = pd.read_gbq(query, project_id='minerva-da-coe', dialect='standard')
+        df_all = df_all.append(df_query)
+        print(f'DEBUG:Query Requests-Actual:{str(count)}:{cluster}:{region}:{warehouse}:INFO-{str(len(df_query))}')
+        df_query = ''
+        count += 1
     return df_all
 
 def query_update_actual(df_all, if_exists='fail'):
