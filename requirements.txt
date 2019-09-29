@@ -3,3 +3,4 @@ numpy==1.16.4
 pandas_gbq==0.10.0
 textdistance==4.1.4
 selenium==3.141.0
+beautifulsoup4==4.7.1
