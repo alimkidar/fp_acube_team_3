@@ -2,12 +2,12 @@ from demand_forecast_functions import Forecast, get_data
 
 import pandas as pd 
 import numpy as np 
-
+import warnings
+warnings.filterwarnings("ignore")
 def main():
     f = Forecast()
 
     # Subsetting Data
-
     #Warehouse 1. Jabodetabek
     print(f"DEBUG:Load-WH1")
     w1c0 = get_data(f.df, 0, 1)
@@ -37,7 +37,7 @@ def main():
     w2c3 = get_data(f.df, 3, 2)
     w2c4 = get_data(f.df, 4, 2)
     w2c10 = get_data(f.df, 10, 2)
-    w3c11 = get_data(f.df, 11, 3)
+    w2c11 = get_data(f.df, 11, 2)
     w2c12 = get_data(f.df, 12, 2)
     w2c13 = get_data(f.df, 13, 2)
     w2c14 = get_data(f.df, 14, 2)
@@ -138,3 +138,4 @@ def main():
     f.ARIMA_f(w3c23, 0,0,2)
 
     f.update_db()
+main()
