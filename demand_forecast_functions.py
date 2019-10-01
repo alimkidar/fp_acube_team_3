@@ -86,7 +86,7 @@ class Forecast():
     def holt_winter_f(self, df, trend, seasonal):
         try:
             holt_w = ExponentialSmoothing(np.array(df['Actual']), trend=trend, seasonal=seasonal, seasonal_periods=4)
-            fit_holt_w = holt_w.fit(use_boxcox=True)
+            fit_holt_w = holt_w.fit(use_boxcox=True, disp=0)
             forecast = fit_holt_w.forecast()[0]
 
             Cluster, Warehouse, WF, YF = generate_attrib(df)
@@ -95,21 +95,21 @@ class Forecast():
         except:
             return print("ERROR:FORECAST-HOLT_WINTER")
     def ARIMA_f(self, df, p, d, q, boxcox=False):
-        # try:
-        arima_mod = ARIMA(np.array(df['Actual']), order=[p,d,q])
-        fit_arima = arima_mod.fit(use_boxcox=boxcox)
-        forecast = fit_arima.forecast()[0][0]
+        try:
+            arima_mod = ARIMA(np.array(df['Actual']), order=[p,d,q])
+            fit_arima = arima_mod.fit(use_boxcox=boxcox, disp=0)
+            forecast = fit_arima.forecast()[0][0]
 
-        Cluster, Warehouse, WF, YF = generate_attrib(df)
-        self.df_forecast.append({'Cluster':Cluster, 'Warehouse':Warehouse, 'Year':YF, "Week": WF, "Forecast":forecast})
-        return print(f'DEBUG:Forecast:{Cluster}:{Warehouse}:{YF}:{WF}:{forecast}')
-        # except:
-        #     return print("ERROR:FORECAST-ARIMA")
+            Cluster, Warehouse, WF, YF = generate_attrib(df)
+            self.df_forecast.append({'Cluster':Cluster, 'Warehouse':Warehouse, 'Year':YF, "Week": WF, "Forecast":forecast})
+            return print(f'DEBUG:Forecast:{Cluster}:{Warehouse}:{YF}:{WF}:{forecast}')
+        except:
+            return print("ERROR:FORECAST-ARIMA")
 
     def SARIMA_f(self, df, pdq, s):
         try:
             sarima_mod = SARIMAX(np.array(df['Actual']), order=pdq, seasonal_order=s)
-            fit_sarima = sarima_mod.fit(use_boxcox=True)
+            fit_sarima = sarima_mod.fit(use_boxcox=True, disp=0)
             forecast = fit_sarima.forecast()[0]
 
             Cluster, Warehouse, WF, YF = generate_attrib(df)
@@ -118,10 +118,11 @@ class Forecast():
         except:
             return print("ERROR:FORECAST-SARIMA")
 
-    def update_db(self, db):
+    def update_db(self):
         try:
             df_forecast = pd.DataFrame(self.df_forecast)
-            df_forecast.to_gbq('alim_hanif.tab_actual',if_exists ='append', project_id='minerva-da-coe')
+            df_forecast['Forecast'] = df_forecast['Forecast'].apply(lambda x: int(x))
+            df_forecast.to_gbq('alim_hanif.tab_forecast',if_exists ='append', project_id='minerva-da-coe')
             return print(f'DEBUG:Update-BQ-Forecast')
         except:
             return print("ERROR:FORECAST-UPDATE_DB")        
