@@ -22,8 +22,6 @@ from sklearn.metrics import mean_absolute_error
 from keras.callbacks import EarlyStopping
 from keras.callbacks import History
 from keras.callbacks import ReduceLROnPlateau
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 warnings.filterwarnings("ignore")
 def get_data(df, cluster, warehouse):
