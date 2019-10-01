@@ -74,7 +74,7 @@ def main():
 
     # Demand Forecasting
     # Warehouse 1
-    print(f"DEBUG:Forecast-WH1")
+    print(f"DEBUG:Forecasting-WH1")
     f.ARIMA_f(w1c0, 0, 0, 2)
     f.SARIMA_f(w1c1, [1,1,1], [1,1,1,4])
     # w1c3 - 
@@ -95,7 +95,7 @@ def main():
     f.DEF_f(w1c23, 0.1, 0.7)
 
     # Warehouse 2
-    print(f"DEBUG:Forecast-WH2")
+    print(f"DEBUG:Forecasting-WH2")
     f.ARIMA_f(w2c0, 1,0,1)
     f.ARIMA_f(w2c1, 0,0,2,boxcox=True)
     f.DEF_f(w2c3, 0.9, 0.0)
@@ -108,7 +108,7 @@ def main():
     # w2c15
     f.SARIMA_f(w2c16, [0,0,0], [1,1,1,4])
     # w2c17 LSTM
-    w2c18
+    f.SARIMA_f(w2c18, [1,1,0], [1,1,0,4])
     # w2c19 LSTM
     # w2c20 LSTM
     f.SARIMA_f(w2c21, [1,1,0], [0,1,0,4])
@@ -117,7 +117,7 @@ def main():
 
 
     # Warehouse 3
-    print(f"DEBUG:Forecast-WH3")
+    print(f"DEBUG:Forecasting-WH3")
     f.SARIMA_f(w3c0, [1,1,0], [0,1,1,4])
     f.MA_f(w3c1, 2)
     f.DEF_f(w3c3, 0.9, 0.1)
@@ -132,7 +132,7 @@ def main():
     f.DEF_f(w3c17, 0.1, 0.5)
     f.MA_f(w3c18, 35)
     f.SARIMA_f(w3c19, [0,0,0],[1,0,0,4])
-    w3c20
+    # w3c20
     f.SARIMA_f(w3c21, [0,0,1],[1,0,1,4])
     f.SES_f(w3c22, 0.22)
     f.ARIMA_f(w3c23, 0,0,2)
