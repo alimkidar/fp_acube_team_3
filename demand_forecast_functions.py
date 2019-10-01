@@ -8,6 +8,20 @@ import pandas as pd
 import numpy as np
 import warnings
 import math
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
+from keras.layers import *
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+from keras.callbacks import EarlyStopping
+from keras.callbacks import History
+from keras.callbacks import ReduceLROnPlateau
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 warnings.filterwarnings("ignore")
@@ -53,3 +67,6 @@ def SARIMA_f(df, pdq, s):
     fit_sarima = sarima_mod.fit(use_boxcox=True)
     forecast = fit_sarima.forecast()
     return forecast[0]
+
+def lstm(df, model):
+    
