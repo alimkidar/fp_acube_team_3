@@ -1,1 +1,5 @@
 .ipynb_*
+
+test*.ipynb
+
+__pycache*
